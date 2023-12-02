@@ -14,9 +14,9 @@ public class Part1 {
 
     private static void run(InputResourceReader reader) {
         double sum = reader.readInput()
-                .map(Part1::filterDigits)
-                .mapToInt(Part1::combineFirstAndLastDigit)
-                .sum();
+            .map(Part1::filterDigits)
+            .mapToInt(Part1::combineFirstAndLastDigit)
+            .sum();
         System.out.printf("The sum of the first and last digit on each line is %s%n", sum);
     }
 

@@ -13,15 +13,15 @@ public class Part2 {
      * written out numbers
      */
     private static final Map<String, String> DIGIT_REPLACEMENTS = Map.of(
-            "one", "o1e",
-            "two", "t2o",
-            "three", "t3e",
-            "four", "f4r",
-            "five", "f5e",
-            "six", "s6x",
-            "seven", "s7n",
-            "eight", "e8t",
-            "nine", "n9e"
+        "one", "o1e",
+        "two", "t2o",
+        "three", "t3e",
+        "four", "f4r",
+        "five", "f5e",
+        "six", "s6x",
+        "seven", "s7n",
+        "eight", "e8t",
+        "nine", "n9e"
     );
 
     public static void main(String[] args) throws IOException {
@@ -32,20 +32,20 @@ public class Part2 {
 
     private static void run(InputResourceReader reader) {
         double sum = reader.readInput()
-                .map(Part2::filterDigits)
-                .mapToInt(Part2::combineFirstAndLastDigit)
-                .sum();
+            .map(Part2::filterDigits)
+            .mapToInt(Part2::combineFirstAndLastDigit)
+            .sum();
         System.out.printf("The sum of the first and last digit on each line is %s%n", sum);
     }
 
     private static IntStream filterDigits(String line) {
         String digitLine = DIGIT_REPLACEMENTS.entrySet()
-                .stream()
-                .reduce(
-                        line,
-                        (string, replacement) -> string.replace(replacement.getKey(), replacement.getValue()),
-                        new UnsupportedCombiner<>()
-                );
+            .stream()
+            .reduce(
+                line,
+                (string, replacement) -> string.replace(replacement.getKey(), replacement.getValue()),
+                new UnsupportedCombiner<>()
+            );
         return digitLine.chars().filter(Character::isDigit).map(Part2::digitToInt);
     }
 
