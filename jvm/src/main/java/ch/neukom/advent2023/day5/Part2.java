@@ -22,6 +22,7 @@ public class Part2 {
         long minimalLocation = inputParser.parseSeedRanges()
             .stream()
             .flatMapToLong(i -> i)
+            .parallel()
             .map(seed -> categoryMappers.stream().reduce(seed, (value, categoryMapper) -> categoryMapper.map(value), new UnsupportedCombiner<>()))
             .min()
             .orElseThrow();

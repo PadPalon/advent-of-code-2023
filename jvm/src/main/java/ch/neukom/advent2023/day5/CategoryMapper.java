@@ -22,7 +22,7 @@ public class CategoryMapper {
 
     public record Range(long sourceStart, long destinationStart, long length) {
         public boolean contains(long value) {
-            return sourceStart <= value && sourceStart + length >= value;
+            return sourceStart <= value && sourceStart + length > value;
         }
 
         public long map(long value) {
