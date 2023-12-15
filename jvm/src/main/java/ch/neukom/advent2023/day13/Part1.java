@@ -27,7 +27,7 @@ public class Part1 {
                 String[] lines = part.split("\n");
                 int lineCount = lines.length;
                 int columnCount = lines[0].length();
-                Character[][] array = InputArrayReader.buildArray(InputArrayReader.Symbol::symbol, Character.class, part.lines(), lineCount, columnCount);
+                Character[][] array = InputArrayReader.buildArray(InputArrayReader.Symbol::symbol, Character.class, part::lines, lineCount, columnCount);
 
                 Set<Integer> columnMirrors = findColumnMirrors(columnCount, lineCount, array);
                 Set<Integer> rowMirrors = findRowMirrors(lineCount, array);

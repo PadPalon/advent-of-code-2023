@@ -4,6 +4,7 @@ import com.google.common.collect.Streams;
 
 import java.lang.reflect.Array;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class InputArrayReader extends InputResourceReader {
@@ -16,16 +17,16 @@ public class InputArrayReader extends InputResourceReader {
     }
 
     public <T> T[][] readIntoArray(Function<Symbol, T> creator, Class<T> type) {
-        return buildArray(creator, type, readInput(), (int) getLineCount(), getFirstLine().length());
+        return buildArray(creator, type, this::readInput, (int) getLineCount(), getFirstLine().length());
     }
 
     public static <T> T[][] buildArray(Function<Symbol, T> creator, Class<T> type,
-                                       Stream<String> input,
+                                       Supplier<Stream<String>> inputSupplier,
                                        int lineCount,
                                        int columnCount) {
         T[][] array = (T[][]) Array.newInstance(type, lineCount, columnCount);
         Streams.mapWithIndex(
-                input,
+                inputSupplier.get(),
                 (line, lineIndex) -> Streams.mapWithIndex(
                     line.chars(),
                     (symbol, columnIndex) -> new Symbol((char) symbol, (int) lineIndex, (int) columnIndex)
