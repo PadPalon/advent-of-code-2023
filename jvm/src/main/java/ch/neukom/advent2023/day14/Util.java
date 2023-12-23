@@ -1,6 +1,7 @@
 package ch.neukom.advent2023.day14;
 
 import ch.neukom.advent2023.util.InputArrayReader;
+import ch.neukom.advent2023.util.InputArrayReader.ArrayWithInfo;
 
 import java.util.Arrays;
 
@@ -107,7 +108,7 @@ public class Util {
         return result;
     }
 
-    static RockType[][] readRocks(InputArrayReader reader) {
+    static ArrayWithInfo<RockType> readRocks(InputArrayReader reader) {
         return reader.readIntoArray(symbol -> switch (symbol.symbol()) {
             case '#' -> RockType.CUBE;
             case 'O' -> RockType.ROUND;

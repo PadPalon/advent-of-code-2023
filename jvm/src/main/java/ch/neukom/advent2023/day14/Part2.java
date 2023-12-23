@@ -1,6 +1,7 @@
 package ch.neukom.advent2023.day14;
 
 import ch.neukom.advent2023.util.InputArrayReader;
+import ch.neukom.advent2023.util.InputArrayReader.ArrayWithInfo;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
@@ -19,10 +20,11 @@ public class Part2 {
     }
 
     private static void run(InputArrayReader reader) {
-        int lineCount = (int) reader.getLineCount();
-        int columnCount = reader.getFirstLine().length();
+        ArrayWithInfo<RockType> input = Util.readRocks(reader);
+        int lineCount = input.lineCount();
+        int columnCount = input.columnCount();
 
-        RockType[][] initialPositions = Util.readRocks(reader);
+        RockType[][] initialPositions = input.array();
         Set<RockType[][]> cycle = findCycle(initialPositions, lineCount, columnCount);
         RockType[][] finalPositions = calculateFinalPosition(initialPositions, lineCount, columnCount, cycle);
         int load = Util.calculateLoad(finalPositions, lineCount, columnCount);

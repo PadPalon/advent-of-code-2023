@@ -10,10 +10,10 @@ public class Contraption {
     private final int lineCount;
     private final int columnCount;
 
-    public Contraption(Type[][] grid) {
+    public Contraption(Type[][] grid, int lineCount, int columnCount) {
         this.grid = grid;
-        this.lineCount = grid.length;
-        this.columnCount = grid[0].length;
+        this.lineCount = lineCount;
+        this.columnCount = columnCount;
     }
 
     public Collection<Laser> visit(Laser laser) {
@@ -68,7 +68,7 @@ public class Contraption {
         NORTH,
         EAST,
         SOUTH,
-        WEST;
+        WEST
     }
 
     public record Position(int line, int column) {

@@ -1,6 +1,7 @@
 package ch.neukom.advent2023.day16;
 
 import ch.neukom.advent2023.util.InputArrayReader;
+import ch.neukom.advent2023.util.InputArrayReader.ArrayWithInfo;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -13,7 +14,7 @@ public class Util {
     private Util() {}
 
     static Contraption setupContraption(InputArrayReader reader) {
-        Contraption.Type[][] grid = reader.readIntoArray(symbol -> switch (symbol.symbol()) {
+        ArrayWithInfo<Contraption.Type> grid = reader.readIntoArray(symbol -> switch (symbol.symbol()) {
             case '.' -> EMPTY;
             case '|' -> SPLITTER_VERTICAL;
             case '-' -> SPLITTER_HORIZONTAL;
@@ -21,7 +22,7 @@ public class Util {
             case '\\' -> NW_SE;
             default -> throw new IllegalStateException("Unexpected value: %s".formatted(symbol.symbol()));
         }, Contraption.Type.class);
-        return new Contraption(grid);
+        return new Contraption(grid.array(), grid.lineCount(), grid.columnCount());
     }
 
     static int runLaser(Contraption contraption, Contraption.Position startPosition, Contraption.Direction startDirection) {

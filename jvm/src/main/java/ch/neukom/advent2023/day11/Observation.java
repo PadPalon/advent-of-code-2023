@@ -1,6 +1,7 @@
 package ch.neukom.advent2023.day11;
 
 import ch.neukom.advent2023.util.InputArrayReader;
+import ch.neukom.advent2023.util.InputArrayReader.ArrayWithInfo;
 import ch.neukom.advent2023.util.InputArrayReader.Symbol;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
@@ -13,9 +14,10 @@ public class Observation {
     }
 
     public static Set<Position> parse(InputArrayReader reader, long scale) {
-        long lineCount = reader.getLineCount();
-        int columnCount = reader.getFirstLine().length();
-        Character[][] observation = reader.readIntoArray(Symbol::symbol, Character.class);
+        ArrayWithInfo<Character> input = reader.readIntoArray(Symbol::symbol, Character.class);
+        long lineCount = input.lineCount();
+        int columnCount = input.columnCount();
+        Character[][] observation = input.array();
 
         Set<Long> emptyLines = new HashSet<>();
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {

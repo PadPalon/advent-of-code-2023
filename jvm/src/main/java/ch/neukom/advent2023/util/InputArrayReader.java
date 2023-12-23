@@ -16,8 +16,11 @@ public class InputArrayReader extends InputResourceReader {
         super(clazz, filename);
     }
 
-    public <T> T[][] readIntoArray(Function<Symbol, T> creator, Class<T> type) {
-        return buildArray(creator, type, this::readInput, (int) getLineCount(), getFirstLine().length());
+    public <T> ArrayWithInfo<T> readIntoArray(Function<Symbol, T> creator, Class<T> type) {
+        int lineCount = (int) getLineCount();
+        int columnCount = getFirstLine().length();
+        T[][] array = buildArray(creator, type, this::readInput, lineCount, columnCount);
+        return new ArrayWithInfo<>(array, lineCount, columnCount);
     }
 
     public static <T> T[][] buildArray(Function<Symbol, T> creator, Class<T> type,
@@ -38,5 +41,8 @@ public class InputArrayReader extends InputResourceReader {
     }
 
     public record Symbol(char symbol, int lineIndex, int columnIndex) {
+    }
+
+    public record ArrayWithInfo<T>(T[][] array, int lineCount, int columnCount) {
     }
 }
